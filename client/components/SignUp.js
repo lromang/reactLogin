@@ -8,6 +8,9 @@ import {hashHistory} from "react-router";
 class SignUp extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            errors: []
+        }
     }
 
     onSubmit({email, password}) {
@@ -16,14 +19,18 @@ class SignUp extends Component {
             refetchQueries: [{query}]
         }).then(() => {
             hashHistory.push('/login')
+        }).catch(res => {
+            const errors = res.graphQLErrors.map(e => e.message)
+            this.setState({errors})
         })
-
     }
 
     render() {
         return (
             <div>
-                <AuthForm onSubmit={this.onSubmit.bind(this)}/>
+                <AuthForm
+                    errors={this.state.errors}
+                    onSubmit={this.onSubmit.bind(this)}/>
             </div>
         )
     }

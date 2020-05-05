@@ -5,6 +5,7 @@ import { ApolloProvider } from "react-apollo";
 import App from './components/App';
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
+import Landing from "./components/Landing";
 
 import {
     Route,
@@ -34,6 +35,7 @@ const Root = () => {
               <Route path="/" component={App}>
                   <Route path="/signup" component={SignUp}></Route>
                   <Route path="/login" component={LogIn}></Route>
+                  <Route path="/landing" component={Landing}></Route>
               </Route>
           </Router>
       </ApolloProvider>

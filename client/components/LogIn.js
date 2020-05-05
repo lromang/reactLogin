@@ -3,6 +3,7 @@ import AuthForm from "./AuthForm";
 import {graphql} from "react-apollo";
 import mutation from "../mutations/LogIn";
 import query from '../queries/CurrentUser';
+import {hashHistory} from "react-router";
 
 class Login extends Component {
 
@@ -17,6 +18,8 @@ class Login extends Component {
         this.props.mutate({
             variables: { email, password },
             refetchQueries: [{query}]
+        }).then(() => {
+            hashHistory.push('/landing')
         }).catch(res => {
             const errors = res.graphQLErrors.map(e => e.message)
             this.setState({errors})

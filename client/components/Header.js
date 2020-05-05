@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {graphql} from "react-apollo";
 import query from "../queries/CurrentUser";
-import {Link} from "react-router";
+import {hashHistory, Link} from "react-router";
 import mutation from "../mutations/LogOut";
 
 
@@ -10,6 +10,8 @@ class Header extends Component {
     logout() {
         this.props.mutate({
             refetchQueries: [{ query }]
+        }).then(() => {
+            hashHistory.push('/login')
         })
     }
 
