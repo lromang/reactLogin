@@ -8,15 +8,18 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            errors: []
+        }
     }
 
     login({email, password}) {
         this.props.mutate({
-            variables: {
-                email,
-                password
-            },
+            variables: { email, password },
             refetchQueries: [{query}]
+        }).catch(res => {
+            const errors = res.graphQLErrors.map(e => e.message)
+            this.setState({errors})
         })
     }
 
@@ -24,7 +27,9 @@ class Login extends Component {
         return (
             <div>
                 <h3>Login</h3>
-                <AuthForm onSubmit={this.login.bind(this)}/>
+                <AuthForm
+                    errors={this.state.errors}
+                    onSubmit={this.login.bind(this)}/>
             </div>
         )
     }
