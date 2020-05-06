@@ -6,12 +6,14 @@ import App from './components/App';
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Landing from "./components/Landing";
+import RequireAuth from "./components/requireAuth";
 
 import {
     Route,
     Router,
     hashHistory,
     IndexRoute} from "react-router";
+import requireAuth from "./components/requireAuth";
 
 // Network interface
 // for adding cookies to network requests
@@ -35,7 +37,7 @@ const Root = () => {
               <Route path="/" component={App}>
                   <Route path="/signup" component={SignUp}></Route>
                   <Route path="/login" component={LogIn}></Route>
-                  <Route path="/landing" component={Landing}></Route>
+                  <Route path="/landing" component={requireAuth(Landing)}></Route>
               </Route>
           </Router>
       </ApolloProvider>
