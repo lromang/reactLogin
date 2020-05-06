@@ -13,12 +13,16 @@ class SignUp extends Component {
         }
     }
 
+    componentWillUpdate(nextProps) {
+        if(!this.props.data.currentUser && nextProps.data.currentUser){
+            hashHistory.push("/landing")
+        }
+    }
+
     onSubmit({email, password}) {
         this.props.mutate({
             variables: {email, password},
             refetchQueries: [{query}]
-        }).then(() => {
-            hashHistory.push('/login')
         }).catch(res => {
             const errors = res.graphQLErrors.map(e => e.message)
             this.setState({errors})
